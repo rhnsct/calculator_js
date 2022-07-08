@@ -3,12 +3,14 @@
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    font-size: clamp(1vw, 5vw, 38px);
+    
+    
 }
 
 body {
     width: 100vw;
     height: 100vh;
+    
 }
 
 p {
@@ -22,21 +24,50 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: clamp(1vw, 5vw, 38px);
+    
 }
 
 .calculator {
     background-color: rgb(23, 28, 29);
-    padding: 10px;
+    padding: 0.5rem;
     width: 100%;
     height: 100%;
     max-width: 250px;
     max-height: 400px;
+    display: flex;
+    border-radius: 1vw;
+    flex-direction: column;
+}
+
+.screen {
+    height: 8rem;
+    background-color: rgba(0, 0, 0, 0.452);
+    border-radius: 1vw;
+    margin-bottom: 0.5rem;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.screen > p {
+    font-size: 1.8rem;
+}
+
+.numpad {
+    width: 100%;
+    height: 70%;
     display: grid;
-    border-radius: 20px;
+    gap: 0.5rem;
+    justify-items: center;
+    align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: repeat(7, 1fr);
-    gap: 5px;
-    margin: auto;
+    grid-template-rows: repeat(5, 1fr);
+    margin-bottom: 0.5rem;
+    
+    
 
 }
 
@@ -46,14 +77,15 @@ button {
     background-color: rgba(13, 35, 36, 0.212) ;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.555);
     border-radius: 50vw;
-    min-width: 1.4em;
-    margin: auto;
-    min-height: 1.4em;
+    height: 3.1rem;
+    width: 3.1rem;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: 1.5rem;
+    
+    
 }
 
 /* .button:hover {
@@ -74,20 +106,15 @@ button:focus {
     
 }
 
-.screen {
-    grid-column: 1/5;
-    background-color: rgba(0, 0, 0, 0.452);
-    grid-row: 1/3;
-    border-radius: 10px;
-    
-    margin-bottom: 5px;
-}
-
 .zero {
+    
     grid-column: 1/3;
-    min-width: 3.3em;
+    width: 7rem;
 }
 
+.delete {
+    font-size: 1.2rem;
+}
 
 
 .minus {
@@ -96,19 +123,16 @@ button:focus {
     bottom: 10%;
 }
 
-.delete {
-    
-}
 
 .operator {
-    color: rgb(29, 84, 204);
+    color: rgb(41, 86, 184);
 }
 
 .equal {
     color: rgba(255, 255, 255, 0.548);
     grid-column: 4;
-    grid-row: 6/8;
-    min-height: 3.3em;
+    grid-row: 4/6;
+    height: 7rem;
     background-color: rgb(47, 132, 211);
 }
 
