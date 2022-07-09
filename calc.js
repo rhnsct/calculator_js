@@ -47,7 +47,7 @@ function operate(a, operator, b) {
 
 function appendNumList(num) {
     numList.push(num);
-    screenUpdateLogic(0, true, false);
+    
 };
 
 function joinNumList() {
@@ -64,16 +64,13 @@ function checkIfTempListEmpty() {
 }
 
 function appendTempList(input, oper = true) {
-    let checkList = checkIfTempListEmpty()
-    console.log(numList)
+    let checkList = checkIfTempListEmpty();
+    
     if (numList.length == 0 && checkList == true) {
-        alert("Activating")
         number = 0
     } else{
         number = joinNumList();
     };
-    console.log(checkList)
-    console.log(number)
 
     if (checkList == false && number != 0 && oper) {
         tempList.splice(1,1,input)        
@@ -101,12 +98,21 @@ function deleteDigit() {
     screenUpdateLogic(0, true, false);
 };
 
+function continuousInputsManager(number) {
+    clearLists();
+    let array = Array.from(String(number));
+    array.forEach(element => {
+        appendNumList(element);
+    });
+}
+
 function inputResponse(input_id) {
     let input = input_id;
     if (input == "=") {
         appendTempList(input, false);
-        screenUpdateLogic(sortForOperate(),false,false);
-        clearLists();
+        let result = sortForOperate();
+        screenUpdateLogic(result,false,false);
+        continuousInputsManager(result);
     } else if (operations.includes(input)) {
         appendTempList(input);
         numList = [];
@@ -117,17 +123,18 @@ function inputResponse(input_id) {
     } else if (input == "." && numList.length == 0) {
         appendNumList("0");
         appendNumList(input);
+        screenUpdateLogic(0, true, false);
     } else if (numList.length == 0 && input == "0"){
                 
     } else {
         appendNumList(input);  
+        screenUpdateLogic(0, true, false);
     };
 };
 
 function respondClick(clicked_id) {
     inputResponse(clicked_id);
 };
-
 
 function keyListenerLogic() {
     document.addEventListener("keydown", function onEvent(event) {
