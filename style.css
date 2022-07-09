@@ -13,6 +13,10 @@ p {
     color: rgba(255, 255, 255, 0.548) ;
 }
 
+#equate {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.301);
+}
 .container {
     width: 100%;
     height: 100%;
