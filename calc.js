@@ -50,8 +50,10 @@ function operate(a, operator, b) {
 };
 
 function appendNumList(num) {
-    numList.push(num);
     
+    if (numList[numList.length - 1] != '.'){
+        numList.push(num);
+    }
 };
 
 function joinNumList() {
