@@ -27,10 +27,14 @@ function divide(a, b) {
 };
 
 function sortForOperate() {
+    
     let firstNum = tempList[0];
     let oper = tempList[1];
     let secondNum = tempList[2];
     return operate(firstNum, oper, secondNum);
+    
+    
+    
 }
 
 function operate(a, operator, b) {
@@ -51,8 +55,13 @@ function appendNumList(num) {
 };
 
 function joinNumList() {
-    let number = parseFloat(numList.join(''));
-    return number;
+
+    if (numList[numList.length - 1] == '.'){
+        return String(numList.join(''))
+    } else {
+        return parseFloat(numList.join(''));
+    }
+   
 };
 
 function checkIfTempListEmpty() {
@@ -65,7 +74,6 @@ function checkIfTempListEmpty() {
 
 function appendTempList(input, oper = true) {
     let checkList = checkIfTempListEmpty();
-    
     if (numList.length == 0 && checkList == true) {
         number = 0
     } else{
@@ -77,7 +85,10 @@ function appendTempList(input, oper = true) {
     } else if (oper) {
         tempList.push(number);
         tempList.push(input);
-    } else {
+    } else if (numList.length == 0) {
+        tempList.push(0)
+    }
+    else {
         tempList.push(number);
     };
     screenUpdateLogic(0, false, true);
@@ -108,12 +119,12 @@ function continuousInputsManager(number) {
 
 function inputResponse(input_id) {
     let input = input_id;
-    if (input == "=") {
+    if (input == "=" && tempList.length != 0) {
         appendTempList(input, false);
         let result = sortForOperate();
         screenUpdateLogic(result,false,false);
         continuousInputsManager(result);
-    } else if (operations.includes(input)) {
+    } else if (operations.includes(input) && input != "=") {
         appendTempList(input);
         numList = [];
     } else if (input == "clear") {
@@ -124,12 +135,10 @@ function inputResponse(input_id) {
         appendNumList("0");
         appendNumList(input);
         screenUpdateLogic(0, true, false);
-    } else if (numList.length == 0 && input == "0"){
-                
-    } else {
+    } else if (digits.includes(input)){     
         appendNumList(input);  
         screenUpdateLogic(0, true, false);
-    };
+    }
 };
 
 function respondClick(clicked_id) {
@@ -140,6 +149,7 @@ function keyListenerLogic() {
     document.addEventListener("keydown", function onEvent(event) {
         if (digits.includes(event.key) || operations.includes(event.key)) {
             inputResponse(event.key);
+        
         } else if (event.key == "Enter"){
             inputResponse("=");
         } else if (event.key == "Backspace"){
