@@ -51,7 +51,7 @@ function operate(a, operator, b) {
 
 function appendNumList(num) {
     
-    if (numList[numList.length - 1] != '.'){
+    if (numList[numList.length - 1] != '.' || num != "."){
         numList.push(num);
     }
 };
