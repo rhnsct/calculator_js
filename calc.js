@@ -1,96 +1,98 @@
 const operations = ["+", "-", "*", "/", "="];
 const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
-
 let numList = [];
 let tempList = [];
 let storedList = {};
 
 function add(a, b) {
-    return a+b;
+    return a + b;
 };
 
 function subtract(a, b) {
-    return a-b;
+    return a - b;
 };
 
 function multiply(a, b) {
-    return a*b;
+    return a * b;
 };
 
 function divide(a, b) {
     if (b == 0) {
         alert("You can't divide by 0!");
-        
     } else {
-        return a/b
+        return a / b
     };
 };
 
 function sortForOperate() {
-    
+    // organises tempList array items for use in 
+    // operate() function
     let firstNum = tempList[0];
     let oper = tempList[1];
     let secondNum = tempList[2];
     return operate(firstNum, oper, secondNum);
-    
-    
-    
 }
 
 function operate(a, operator, b) {
+    // takes 2 numbers and an operater to decide 
+    // which mathematical function to call
     if (operator == "+") {
-        return add(a,b);
+        return add(a, b);
     } else if (operator == "-") {
-        return subtract(a,b);
+        return subtract(a, b);
     } else if (operator == "*") {
-        return multiply(a,b);
-    } else if (operator == "/"){
-        return divide(a,b);
+        return multiply(a, b);
+    } else if (operator == "/") {
+        return divide(a, b);
     };
 };
 
 function appendNumList(num) {
-    
-    if (!numList.includes('.') || num != "."){
+    // pushes numbers to numList and decimals if
+    // there are no other decimals
+    if (!numList.includes('.') || num != ".") {
         numList.push(num);
     }
 };
 
 function joinNumList() {
-
-    if (numList[numList.length - 1] == '.'){
+    // merges items in numList for use by other 
+    // functions
+    if (numList[numList.length - 1] == '.') {
+        return String(numList.join(''))
+    } else if (numList.includes('.') && numList[numList.length - 1] == 0){
         return String(numList.join(''))
     } else {
         return parseFloat(numList.join(''));
     }
-   
 };
 
 function checkIfTempListEmpty() {
     if (tempList.length == 0) {
         return true
-    } else{
+    } else {
         return false
     }
 }
 
 function appendTempList(input, oper = true) {
+    // takes an input and decides if it should append
+    // it to tempList or replace the current existing 
+    // operator
     let checkList = checkIfTempListEmpty();
     if (numList.length == 0 && checkList == true) {
-        number = 0
-    } else{
+        number = 0;
+    } else {
         number = joinNumList();
     };
-
     if (checkList == false && number != 0 && oper) {
-        tempList.splice(1,1,input)        
+        tempList.splice(1, 1, input)
     } else if (oper) {
         tempList.push(number);
         tempList.push(input);
     } else if (numList.length == 0) {
         tempList.push(0)
-    }
-    else {
+    } else {
         tempList.push(number);
     };
     screenUpdateLogic(0, false, true);
@@ -107,16 +109,19 @@ function clearScreen() {
 };
 
 function deleteDigit() {
+    // deletes most recent inputted digit or
+    // decimal
     numList.splice(-1);
-    if (numList.length == 0){
+    if (numList.length == 0) {
         screenUpdateLogic(0, false, false);
     } else {
         screenUpdateLogic(0, true, false);
     }
-    
 };
 
 function continuousInputsManager(number) {
+    // makes sure you can continue using the number
+    // you get as a result from operation
     clearLists();
     let array = Array.from(String(number));
     array.forEach(element => {
@@ -125,11 +130,13 @@ function continuousInputsManager(number) {
 }
 
 function inputResponse(input_id) {
+    // deals with all inputs and decides which function
+    // to call, based on the input
     let input = input_id;
     if (input == "=" && tempList.length != 0) {
         appendTempList(input, false);
         let result = sortForOperate();
-        screenUpdateLogic(result,false,false);
+        screenUpdateLogic(result, false, false);
         continuousInputsManager(result);
     } else if (operations.includes(input) && input != "=") {
         appendTempList(input);
@@ -142,35 +149,38 @@ function inputResponse(input_id) {
         appendNumList("0");
         appendNumList(input);
         screenUpdateLogic(0, true, false);
-    } else if (digits.includes(input)){     
-        appendNumList(input);  
+    } else if (digits.includes(input)) {
+        appendNumList(input);
         screenUpdateLogic(0, true, false);
-    }
+    };
 };
 
 function respondClick(clicked_id) {
+    // click response to get id from html
     inputResponse(clicked_id);
 };
 
 function keyListenerLogic() {
+    // keyboard response for picking up keystrokes, so you can
+    // type inputs
     document.addEventListener("keydown", function onEvent(event) {
         if (digits.includes(event.key) || operations.includes(event.key)) {
             inputResponse(event.key);
-        
-        } else if (event.key == "Enter"){
+        } else if (event.key == "Enter") {
             inputResponse("=");
-        } else if (event.key == "Backspace"){
+        } else if (event.key == "Backspace" || event.key == "Delete") {
             deleteDigit();
-        } else if (event.key == "Escape" || event.key == "Delete"){
+        } else if (event.key == "Escape"  || event.key == "c") {
             clearScreen();
         };
     });
 };
 
-function screenUpdateLogic(finalValue=0, inputUpdate=false, equationUpdate=false) {
-    const input = document.querySelector("#input");
-    const equate = document.querySelector("#equate");
-    if (inputUpdate){
+function screenUpdateLogic(finalValue = 0, inputUpdate = false, equationUpdate = false) {
+    // refreshes the calculator display so you can see you inputs
+    let input = document.querySelector("#input");
+    let equate = document.querySelector("#equate");
+    if (inputUpdate) {
         input.textContent = joinNumList();
     } else if (equationUpdate) {
         input.textContent = 0;
@@ -184,4 +194,4 @@ function screenUpdateLogic(finalValue=0, inputUpdate=false, equationUpdate=false
     };
 };
 
-keyListenerLogic()
+keyListenerLogic(); // Running Key listener
