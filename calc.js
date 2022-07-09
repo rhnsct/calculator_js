@@ -56,20 +56,28 @@ function joinNumList() {
 };
 
 function checkIfTempListEmpty() {
-    if (tempList.length() == 0) {
-        return false
-    } else{
+    if (tempList.length == 0) {
         return true
+    } else{
+        return false
     }
 }
 
 function appendTempList(input, oper = true) {
-    if (numList.length == 0) {
+    let checkList = checkIfTempListEmpty()
+    console.log(numList)
+    if (numList.length == 0 && checkList == true) {
+        alert("Activating")
         number = 0
     } else{
         number = joinNumList();
-    }
-    if (oper) {
+    };
+    console.log(checkList)
+    console.log(number)
+
+    if (checkList == false && number != 0 && oper) {
+        tempList.splice(1,1,input)        
+    } else if (oper) {
         tempList.push(number);
         tempList.push(input);
     } else {
