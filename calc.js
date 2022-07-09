@@ -108,7 +108,12 @@ function clearScreen() {
 
 function deleteDigit() {
     numList.splice(-1);
-    screenUpdateLogic(0, true, false);
+    if (numList.length == 0){
+        screenUpdateLogic(0, false, false);
+    } else {
+        screenUpdateLogic(0, true, false);
+    }
+    
 };
 
 function continuousInputsManager(number) {
