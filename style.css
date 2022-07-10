@@ -8,6 +8,7 @@
     --item: calc(50vmin/6);
     --font-color-main: #e0e0e0;
     --font-color-blue: rgb(27, 76, 139);
+    --input-font-color: rgba(14, 189, 14, 0.74);
     --calc-background-color: rgb(17, 20, 20);
 }
 
@@ -83,7 +84,7 @@ body {
 }
 
 .inputText {
-    color: rgba(14, 189, 14, 0.74);
+    color: var(--input-font-color);
     min-width: 100%;
     font-size: 1.3rem;
     text-align: right;
