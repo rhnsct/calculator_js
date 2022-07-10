@@ -1,47 +1,49 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="calc.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <title>Calculator</title>
-</head>
-<body>
-    <div class="container">
-        <div class="calculator">
-            <div class="screen">
-                <div class="digitDisplay" id="equate"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="calc.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <title>Calculator</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div class="container1">
+                <div class="screen">
+                    <div class="digitDisplay" id="equate">000</div>
+                    <div class="digitDisplay">
+                        <div class="inputText" id="input" dir="ltr">0</div>
+                    </div>
                     
-                <div class="digitDisplay"><div class="inputText" id="input">0</div></div>
+                </div>
+                <div class="cache"></div>
             </div>
-
-            <div class="numpad">
-                <button onclick="respondClick(this.id)" class="buttonNorm clear operator" id="clear">C</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm divide operator" id="/">&#247</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm multiply operator" id="*">&#215</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm delete operator" id="delete">&#9003</button>
-                
-                <button onclick="respondClick(this.id)" class="buttonNorm seven" id="7">7</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm eight" id="8">8</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm nine" id="9">9</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm minus operator" id="-">-</button>
-
-                <button onclick="respondClick(this.id)" class="buttonNorm four" id="4">4</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm five" id="5">5</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm six" id="6">6</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm plus operator" id="+">+</button>
-                
-                <button onclick="respondClick(this.id)" class="buttonNorm one" id="1">1</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm two" id="2">2</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm three" id="3">3</button>
-                <button onclick="respondClick(this.id)" class="equal operator" id="=">=</button>
-
-                <button onclick="respondClick(this.id)" class="zero" id="0">0</button>
-                <button onclick="respondClick(this.id)" class="buttonNorm decimal" id=".">.</button>
+            <div class="container2">
+                <div class="grid">
+                    <div class="item normal" style="grid-area: 1/1/2/2;"><button onclick="respondClick(this.id)" class="operator" id="c">C</button></div>
+                    <div class="item normal" style="grid-area: 1/2/2/3;"><button onclick="respondClick(this.id)" class="operator" id="/">&#247</button></div>
+                    <div class="item normal" style="grid-area: 1/3/2/4;"><button onclick="respondClick(this.id)" class="operator" id="*">&#215</button></div>
+                    <div class="item normal" style="grid-area: 1/4/2/5;"><button onclick="respondClick(this.id)" class="operator" id="delete"><i class="material-icons operator" style="font-size: clamp(10px, 4vmax, 50px); background-color: transparent; padding-right: 0.5vmin; padding-top: 0.1vmin; @media screen and max-width: 920px{ @media screen and (orientation:portrait) { *{font-size: clamp(10px, 20vmax, 50px);}}}" >&#xe14a;</i></button></div>
+                    <div class="item normal" style="grid-area: 2/1/3/2;"><button onclick="respondClick(this.id)" class="digit" id="7">7</button></div>
+                    <div class="item normal" style="grid-area: 2/2/3/3;"><button onclick="respondClick(this.id)" class="digit" id="8">8</button></div>
+                    <div class="item normal" style="grid-area: 2/3/3/4;"><button onclick="respondClick(this.id)" class="digit" id="9">9</button></div>
+                    <div class="item normal" style="grid-area: 2/4/3/5;"><button onclick="respondClick(this.id)" class="operator" id="-">-</button></div>
+                    <div class="item normal" style="grid-area: 3/1/4/2;"><button onclick="respondClick(this.id)" class="digit" id="4">4</button></div>
+                    <div class="item normal" style="grid-area: 3/2/4/3;"><button onclick="respondClick(this.id)" class="digit" id="5">5</button></div>
+                    <div class="item normal" style="grid-area: 3/3/4/4;"><button onclick="respondClick(this.id)" class="digit" id="6">6</button></div>
+                    <div class="item normal" style="grid-area: 3/4/4/5;"><button onclick="respondClick(this.id)" class="operator" id="+">+</button></div>
+                    <div class="item normal" style="grid-area: 4/1/5/2;"><button onclick="respondClick(this.id)" class="digit" id="1">1</button></div>
+                    <div class="item normal" style="grid-area: 4/2/5/3;"><button onclick="respondClick(this.id)" class="digit" id="2">2</button></div>
+                    <div class="item normal" style="grid-area: 4/3/5/4;"><button onclick="respondClick(this.id)" class="digit" id="3">3</button></div>
+                    <div class="item double" style="grid-area: 4/4/6/5;"><button onclick="respondClick(this.id)" class="operator equal" id="=">=</button></div>
+                    <div class="item double" style="grid-area: 5/1/6/3;"><button onclick="respondClick(this.id)" class="digit" id="0">0</button></div>
+                    <div class="item normal" style="grid-area: 5/3/6/4;"><button onclick="respondClick(this.id)" class="digit" id=".">.</button></div>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
+
