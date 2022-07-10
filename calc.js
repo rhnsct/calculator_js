@@ -164,9 +164,11 @@ function keyListenerLogic() {
     // keyboard response for picking up keystrokes, so you can
     // type inputs
     document.addEventListener("keydown", function onEvent(event) {
+        changeInputDir()
         if (digits.includes(event.key) || operations.includes(event.key)) {
             inputResponse(event.key);
         } else if (event.key == "Enter") {
+            changeInputDir(true)
             inputResponse("=");
         } else if (event.key == "Backspace" || event.key == "Delete") {
             deleteDigit();
@@ -175,6 +177,15 @@ function keyListenerLogic() {
         };
     });
 };
+
+function changeInputDir(forward = false) {
+    let inner = document.getElementById('input')
+    if (forward) {
+        inner.dir = 'ltr'
+    } else {
+        inner.dir = 'rtl'
+    }
+}
 
 function screenUpdateLogic(finalValue = 0, inputUpdate = false, equationUpdate = false) {
     // refreshes the calculator display so you can see you inputs
