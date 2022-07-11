@@ -206,3 +206,4 @@ function screenUpdateLogic(finalValue = 0, inputUpdate = false, equationUpdate =
 };
 
 keyListenerLogic(); // Running Key listener
+
