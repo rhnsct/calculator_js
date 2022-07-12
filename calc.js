@@ -154,7 +154,6 @@ function inputResponse(input_id) {
         resulting = false
         screenUpdateLogic(0, true, false)
     } else if (operations.includes(input) && tempList.length > 0 && numList.length > 0 && input != '=') {
-        console.log('true')
         appendTempList(input);
         let result = sortForOperate()
         clearLists()
@@ -205,7 +204,6 @@ function respondClick(clicked_id) {
 function respondMemoryClick(clicked_id) {
     // brings numbers saved to localStorage to the input field, replacing whatever is there
     let thisResult = document.getElementById(`${clicked_id}result`);
-    console.log(thisResult)
     numList = [];
     let array = Array.from(String(thisResult.textContent));
     array.forEach(element => {

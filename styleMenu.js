@@ -73,7 +73,6 @@ function checkSize() {
     if (window.innerHeight < 920 && window.innerWidth < 1370 && window.orientation == 90) {
         clearEffects()
     } else if (window.innerHeight < 1370 && window.innerWidth < 920 && document.getElementById('opened')) {
-        console.log('nay')
         cache.classList.add('hideIt');
         clearMyHistory.classList.add('hideIt');
         document.getElementById('opened').id = 'closed';
@@ -86,7 +85,6 @@ function checkSize() {
 }
 window.addEventListener("orientationchange", function() {
     let isit = document.getElementById('closed')
-    console.log(isit)
     if (isit) {
 
         checkSize()
