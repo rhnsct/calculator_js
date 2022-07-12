@@ -22,6 +22,12 @@
     font-size: clamp(10px, 3.5vmin, 50px);
     text-align: center;
     scroll-behavior: smooth;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 body {
@@ -47,6 +53,28 @@ body {
     100% {
         background-position: 0% 50%;
     }
+}
+
+button {
+    font-weight: bold;
+    background-color: rgba(63, 65, 66, 0.315);
+    width: 100%;
+    height: 100%;
+    border-radius: 50vw;
+    border: none;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    box-shadow: 1px 1px 4px 1px black;
+    cursor: pointer;
+}
+
+button:hover {
+    animation: fade 0.1s ease-in forwards;
+    
 }
 
 .fullContainer {
@@ -138,8 +166,30 @@ body {
     z-index: 30;
 }
 
+
+
+.clearLocal {
+    z-index: 0;
+    width: 15vmin;
+    height: 5vmin;
+    display: block;
+    position: absolute;
+    right: -55%;
+    bottom: -10%;
+    background: rgba(255, 255, 255, 0.151);
+    box-shadow: 0 8px 32px 0 rgba(42, 48, 134, 0.226);
+    backdrop-filter: blur( 8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    color: black;
+    font-size: 2vmin;
+}
+
+
+
 .cache {
     position: absolute;
+    display: block;
     width: calc(var(--container-width)/1.4);
     height: var(--container-main-height);
     top: 0;
@@ -157,6 +207,7 @@ body {
     scrollbar-width: thin;
     z-index: 1;
     transition: all 0.5s ease;
+    
 }
 
 .cache:hover {
@@ -165,6 +216,10 @@ body {
 .menuAnimate {
     transition: all 0.6s ease;
     right: -70%;
+}
+.displayIt {
+    transition: all 2s ease;
+    opacity: 1;
 }
 
 #opened {
@@ -199,8 +254,39 @@ body {
     box-shadow: inset 5px 5px 10px 1px rgba(229, 229, 231, 0.616);
     height: clamp(80px, 15%, 15%);  
     opacity: 0.6; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 15px;
+    padding-left: 15px;
     
 }
+
+.historyContainer {
+    width: 100%;
+    height: 70%;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-y: none;
+    overflow-x: auto;
+    display: block;
+    scrollbar-width: none;
+}
+
+.historyContainer::-webkit-scrollbar{
+    height: 100%;
+}
+
+.historyContainer>h3 {
+    color: black;
+    font-size: 0.8em;
+}
+.historyContainer>h4 {
+    color: rgba(0, 0, 0, 0.575);
+    font-size: 0.6em;
+}
+
 
 .cacheResult:hover {
     opacity: 1;
@@ -285,27 +371,7 @@ body {
     height: 100%;
 }
 
-button {
-    font-weight: bold;
-    background-color: rgba(63, 65, 66, 0.315);
-    width: 100%;
-    height: 100%;
-    border-radius: 50vw;
-    border: none;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    box-shadow: 1px 1px 4px 1px black;
-    cursor: pointer;
-}
 
-button:hover {
-    animation: fade 0.1s ease-in forwards;
-    
-}
 @keyframes fade {
     from {
         
@@ -350,8 +416,8 @@ button:hover {
         }
         body {
             background: none;
-            display: block;
-            height: 100vh;
+            
+            max-height: 100vh;
             width: 100vw;
         }
 
@@ -369,13 +435,13 @@ button:hover {
 
         .main-container {
             
-            height: 100vh;
+            max-height: 100vh;
             border-radius: 0;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 0;
-            
+         
         }
 
         .menu:hover {
@@ -391,29 +457,54 @@ button:hover {
             border-radius: 0;
             height: 100%;
         }
+        
+        
         .cache {
             
-            display: none;
+            display: fixed;
             left: 0;
+            top: 0;
             width: 100vw;
-            height: 100vh;
+            max-height: 100vh;
             border-radius: 0;
             border: none;
             background: rgba(0, 0, 0, 0.582);
             padding: 2vmin;
-            z-index: 100;
-            
+            z-index: 150;
+            transition: none;
+            padding-bottom: 20vmin;  
         }
 
-        .cacheResult {
-            background: linear-gradient(rgba(223, 223, 223, 0.719) 0%, rgba(15, 22, 31, 0.897) 10%);
-            box-shadow: inset 5px 5px 10px 1px rgba(85, 85, 85, 0.616);
-            
-        }
-        .cacheResult:hover {
+        .clearLocal {
+            transition: none;
+            bottom: 1.5%;
+            width: 90%;
+            height: 15vmin;
+            font-size: 1.2em;
+            color: rgba(15, 22, 29, 0.507);
+            border-radius: 50vw;
+            margin: 0 0 0.1em 0 ;
+            left: 5%;
+            background: rgba(194, 194, 194, 0.521);
+            display: none;
+            position: absolute;
+            z-index: 500;
             opacity: 1;
-            transform: scale(1, 1);
         }
+        .cacheResult {
+            background: linear-gradient(rgba(223, 223, 223, 0.719) 0%, rgba(40, 52, 75, 0.897) 10%);
+            box-shadow: inset 5px 5px 10px 1px rgba(143, 143, 143, 0.616); 
+        }
+        .historyContainer>h3 {
+            color: white;  
+        }
+        .historyContainer>h4 {
+            color: rgba(255, 255, 255, 0.397);
+        }
+        .hideIt {
+            display: none;
+        }
+        
         
         .grid {
             padding-top: 0;
@@ -436,6 +527,7 @@ button:hover {
             border-radius: 0;
             box-shadow: 1px 1px 2px black;
         }
+        
     }
 }
 
@@ -449,9 +541,10 @@ button:hover {
                 --container-width: 100vw;
                 --item: calc(100vh/6);
             }
+
             body {
                 background: none;
-                height: 100vh;
+                max-height: 100vh;
                 width: 100vw;
             }
     
@@ -459,7 +552,7 @@ button:hover {
     
             .main-container {
                 position: fixed;
-                min-height: 100%;
+                max-height: 100%;
                 width: 100vw;
                 border-radius: 0;
                 flex-direction: row;
@@ -471,7 +564,10 @@ button:hover {
             .menu {
                 display: none;
             }
-    
+            
+            .operator {
+                font-size: 2em;
+            }
             .container1 {
                 width: 40vw;
                 height: 100vh;
@@ -485,12 +581,14 @@ button:hover {
             .inputText {
                 font-size: 1.5em;
             }
+
+            
     
             .cache {
                 
+                top: 30vh;
                 left: 0;
-                top: 32%;
-                height: 70%;
+                max-height: 60%;
                 width: 40%;
                 background: none;
                 border: none;
@@ -498,13 +596,41 @@ button:hover {
                 backdrop-filter: none;
                 padding: 3vmin;
                 z-index: 100;
+                display: block;
+
             }
 
             .cacheResult {
+                height: 15vmin;
                 background: linear-gradient(rgba(223, 223, 223, 0.336) 0%, rgba(67, 93, 133, 0.123) 10%);
                 box-shadow: inset 5px 5px 10px 1px rgba(85, 85, 85, 0.616);
                 
+                
             }
+            .cacheResult:hover {
+                transform: scale(1,1);
+            }
+            .historyContainer>h3 {
+                color: white;
+                font-size: 1.5em;
+            }
+            .historyContainer>h4 {
+                color: rgba(255, 255, 255, 0.555);
+            }
+            .clearLocal {
+                display: absolute;
+                left: 0;
+                bottom: 0;
+                width: 41%;
+                height: 10vh;
+                z-index: 500;
+                background-color: red;
+                opacity: 0.5;
+                animation: all 1s ease;
+                margin: 0;
+            }
+           
+
             .grid {
                 padding-top: 0;
                 align-content: center;

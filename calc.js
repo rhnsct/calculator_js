@@ -1,5 +1,6 @@
 const operations = ["+", "-", "*", "/", "="];
 const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+let resulting = false
 let numList = [];
 let tempList = [];
 let storedList = {};
@@ -13,7 +14,7 @@ function subtract(a, b) {
 };
 
 function multiply(a, b) {
-    return a * b;
+    return a*b;
 };
 
 function divide(a, b) {
@@ -31,20 +32,21 @@ function sortForOperate() {
     let oper = tempList[1];
     let secondNum = tempList[2];
     return operate(firstNum, oper, secondNum);
-}
+};
 
 function operate(a, operator, b) {
-    // takes 2 numbers and an operater to decide 
-    // which mathematical function to call
+    let result = 0
     if (operator == "+") {
-        return add(a, b);
+        result = add(a, b);
     } else if (operator == "-") {
-        return subtract(a, b);
+        result = subtract(a, b);
     } else if (operator == "*") {
-        return multiply(a, b);
+        result = multiply(a, b);
     } else if (operator == "/") {
-        return divide(a, b);
+        result = divide(a, b);
     };
+    scrollToTop(result, a, operator, b)
+    return result
 };
 
 function appendNumList(num) {
@@ -58,9 +60,11 @@ function appendNumList(num) {
 function joinNumList() {
     // merges items in numList for use by other 
     // functions
+    
     if (numList[numList.length - 1] == '.') {
         return String(numList.join(''))
     } else if (numList.includes('.') && numList[numList.length - 1] == 0){
+        
         return String(numList.join(''))
     } else {
         return parseFloat(numList.join(''));
@@ -85,6 +89,7 @@ function appendTempList(input, oper = true) {
     } else {
         number = joinNumList();
     };
+
     if (checkList == false && number != 0 && oper) {
         tempList.splice(1, 1, input)
     } else if (oper) {
@@ -119,7 +124,7 @@ function deleteDigit() {
     }
 };
 
-function continuousInputsManager(number) {
+function continuousInputsManager(number, bool) {
     // makes sure you can continue using the number
     // you get as a result from operation
     clearLists();
@@ -127,38 +132,72 @@ function continuousInputsManager(number) {
     array.forEach(element => {
         appendNumList(element);
     });
+    resulting = bool
 }
 
 function inputResponse(input_id) {
     // deals with all inputs and decides which function
     // to call, based on the input
     let input = input_id;
-    if (input == "=" && tempList.length != 0) {
+    if (resulting && digits.includes(input) && input != '.') {
+        clearLists()
+        appendNumList(input)
+        resulting = false
+        screenUpdateLogic(0, true, false)
+    } else if (input == "=" && tempList.length != 0) {
         appendTempList(input, false);
         let result = sortForOperate();
         screenUpdateLogic(result, false, false);
-        continuousInputsManager(result);
+        continuousInputsManager(result, true);
     } else if (operations.includes(input) && input != "=") {
         appendTempList(input);
         numList = [];
+        resulting = false;
     } else if (input == "clear") {
         clearScreen();
+        resulting = false;
     } else if (input == "delete") {
         deleteDigit();
     } else if (input == "." && numList.length == 0) {
+        
         appendNumList("0");
         appendNumList(input);
+       
         screenUpdateLogic(0, true, false);
+        resulting = false;
     } else if (digits.includes(input)) {
         appendNumList(input);
         screenUpdateLogic(0, true, false);
+        resulting = false;
     };
 };
+
+
+
 
 function respondClick(clicked_id) {
     // click response to get id from html
     inputResponse(clicked_id);
 };
+
+function respondMemoryClick(clicked_id) {
+    // brings numbers saved to localStorage to the input field, replacing whatever is there
+    let thisResult = document.getElementById(`${clicked_id}result`);
+    console.log(thisResult)
+    numList = [];
+    let array = Array.from(String(thisResult.textContent));
+    array.forEach(element => {
+        appendNumList(element);
+    });
+    if (window.innerWidth <= 920 && window.innerHeight <= 1370) {
+        
+        if (window.orientation == 0) {
+            checkStateMobile('opened')
+        }
+    };
+    screenUpdateLogic(0, true, false)
+    
+}
 
 function keyListenerLogic() {
     // keyboard response for picking up keystrokes, so you can
@@ -184,7 +223,7 @@ function changeInputDir(forward = false) {
         inner.dir = 'ltr'
     } else {
         inner.dir = 'rtl'
-    }
+    }3123
 }
 
 function screenUpdateLogic(finalValue = 0, inputUpdate = false, equationUpdate = false) {
@@ -192,7 +231,10 @@ function screenUpdateLogic(finalValue = 0, inputUpdate = false, equationUpdate =
     let input = document.querySelector("#input");
     let equate = document.querySelector("#equate");
     if (inputUpdate) {
-        input.textContent = joinNumList();
+        let text = joinNumList()
+        changeInputDir(true)
+        input.textContent = text;
+        
     } else if (equationUpdate) {
         input.textContent = 0;
         equate.textContent = tempList.join("");
