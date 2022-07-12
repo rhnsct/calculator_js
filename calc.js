@@ -82,6 +82,16 @@ function checkIfTempListEmpty() {
     }
 }
 
+function lookForOp() {
+    let isit = false
+    for (let i = 0; i < 4; i++){
+        if (tempList.includes(operations[i])){
+            isit = true
+        }
+    }
+    return isit
+}
+
 function appendTempList(input, oper = true) {
     // takes an input and decides if it should append
     // it to tempList or replace the current existing 
@@ -92,9 +102,11 @@ function appendTempList(input, oper = true) {
     } else {
         number = joinNumList();
     };
-    let l1 = numList.length
-    let l2 =tempList.length
-    if (operations.includes(input) && numList.length > 0 && tempList.length > 0) {
+    if (lookForOp() && operations.includes(input) && input != '='){
+        tempList.pop()
+        tempList.push(input)
+    }
+    else if (operations.includes(input) && numList.length > 0 && tempList.length > 0) {
         tempList.push(joinNumList())
     }
     else if (checkList == false && number != 0 && oper) {
@@ -153,17 +165,14 @@ function inputResponse(input_id) {
         appendNumList(input)
         resulting = false
         screenUpdateLogic(0, true, false)
-    } else if (operations.includes(input) && tempList.length > 0 && numList.length > 0 && input != '=') {
+    } else if (operations.includes(input) && tempList.length ==2 && numList.length > 0 && input != '=') {
         appendTempList(input);
         let result = sortForOperate()
         clearLists()
         tempList.push(result)
         tempList.push(input)
-        
         screenUpdateLogic(0, false, true)
         screenUpdateLogic(0, true, false)
-        
-
     }
     else if (input == "=" && tempList.length != 0) {
         appendTempList(input, false);
