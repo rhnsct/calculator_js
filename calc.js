@@ -192,6 +192,7 @@ function respondMemoryClick(clicked_id) {
     if (window.innerWidth <= 920 && window.innerHeight <= 1370) {
         
         if (window.orientation == 0) {
+            
             checkStateMobile('opened')
         }
     };

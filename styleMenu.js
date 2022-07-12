@@ -70,14 +70,25 @@ function exitHover() {
 };
 
 function checkSize() {
-    if (window.innerHeight < 920 && window.innerWidth < 1370) {
+    if (window.innerHeight < 920 && window.innerWidth < 1370 && window.orientation == 90) {
         clearEffects()
-    } else if (window.innerHeight < 1370 && window.innerWidth < 920) {
+    } else if (window.innerHeight < 1370 && window.innerWidth < 920 && document.getElementById('opened')) {
+        console.log('nay')
         cache.classList.add('hideIt');
         clearMyHistory.classList.add('hideIt');
-        document.getElementById(identity).id = 'closed';
+        document.getElementById('opened').id = 'closed';
+    }   else if (document.getElementById('closed')) {
+        cache.classList.add('hideIt');
+        clearMyHistory.classList.add('hideIt');
+        document.getElementById('closed').id = 'opened';
+        document.getElementById('opened').id = 'closed';
     }
 }
 window.addEventListener("orientationchange", function() {
-    checkSize()
+    let isit = document.getElementById('closed')
+    console.log(isit)
+    if (isit) {
+
+        checkSize()
+    }
   }, false);
