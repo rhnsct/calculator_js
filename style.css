@@ -461,6 +461,7 @@ button:hover {
         #info {
             top: 0%;
             right: 5%;
+            display: none !important;
         }
         
         .cache {
@@ -567,6 +568,10 @@ button:hover {
 
             .menu {
                 display: none;
+            }
+
+            #info {
+                display: none !important;
             }
             
             .operator {
