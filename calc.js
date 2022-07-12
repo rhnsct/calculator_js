@@ -66,7 +66,10 @@ function joinNumList() {
     } else if (numList.includes('.') && numList[numList.length - 1] == 0){
         
         return String(numList.join(''))
-    } else {
+    } else if (numList.length == 0) {
+        return 0
+    }
+    else {
         return parseFloat(numList.join(''));
     }
 };
@@ -89,15 +92,21 @@ function appendTempList(input, oper = true) {
     } else {
         number = joinNumList();
     };
-
-    if (checkList == false && number != 0 && oper) {
+    let l1 = numList.length
+    let l2 =tempList.length
+    if (operations.includes(input) && numList.length > 0 && tempList.length > 0) {
+        tempList.push(number)
+    }
+    else if (checkList == false && number != 0 && oper) {
         tempList.splice(1, 1, input)
     } else if (oper) {
         tempList.push(number);
         tempList.push(input);
     } else if (numList.length == 0) {
+
         tempList.push(0)
     } else {
+
         tempList.push(number);
     };
     screenUpdateLogic(0, false, true);
@@ -144,7 +153,20 @@ function inputResponse(input_id) {
         appendNumList(input)
         resulting = false
         screenUpdateLogic(0, true, false)
-    } else if (input == "=" && tempList.length != 0) {
+    } else if (operations.includes(input) && tempList.length > 0 && numList.length > 0 && input != '=') {
+        console.log('true')
+        appendTempList(input);
+        let result = sortForOperate()
+        clearLists()
+        tempList.push(result)
+        tempList.push(input)
+        
+        screenUpdateLogic(0, false, true)
+        screenUpdateLogic(0, true, false)
+        
+
+    }
+    else if (input == "=" && tempList.length != 0) {
         appendTempList(input, false);
         let result = sortForOperate();
         screenUpdateLogic(result, false, false);
