@@ -95,7 +95,7 @@ function appendTempList(input, oper = true) {
     let l1 = numList.length
     let l2 =tempList.length
     if (operations.includes(input) && numList.length > 0 && tempList.length > 0) {
-        tempList.push(number)
+        tempList.push(joinNumList())
     }
     else if (checkList == false && number != 0 && oper) {
         tempList.splice(1, 1, input)
