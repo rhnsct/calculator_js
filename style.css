@@ -458,6 +458,10 @@ button:hover {
             height: 100%;
         }
         
+        #info {
+            top: 0%;
+            right: 5%;
+        }
         
         .cache {
             
