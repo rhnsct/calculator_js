@@ -417,7 +417,7 @@ button:hover {
         body {
             background: none;
             
-            max-height: 100vh;
+            min-height: 100%;
             width: 100vw;
         }
 
@@ -435,7 +435,7 @@ button:hover {
 
         .main-container {
             
-            max-height: 100vh;
+            min-height: 100vh;
             border-radius: 0;
             flex-direction: column;
             justify-content: center;
@@ -470,7 +470,7 @@ button:hover {
             left: 0;
             top: 0;
             width: 100vw;
-            max-height: 100vh;
+            min-height: 100vh;
             border-radius: 0;
             border: none;
             background: rgba(0, 0, 0, 0.582);
@@ -508,6 +508,9 @@ button:hover {
         }
         .hideIt {
             display: none;
+        }
+        .cacheResult:hover {
+            transform: scale(1,1);
         }
         
         
@@ -549,7 +552,7 @@ button:hover {
 
             body {
                 background: none;
-                max-height: 100vh;
+                min-height: 100%;
                 width: 100vw;
             }
     
@@ -557,7 +560,7 @@ button:hover {
     
             .main-container {
                 position: fixed;
-                max-height: 100vh;
+                min-height: 100vh;
                 width: 100vw;
                 border-radius: 0;
                 flex-direction: row;
@@ -597,14 +600,14 @@ button:hover {
                 
                 top: 30vh;
                 left: 0;
-                max-height: 60%;
+                height: 60vh;
                 width: 40%;
                 background: none;
                 border: none;
                 box-shadow: none;
                 backdrop-filter: none;
                 padding: 3vmin;
-                z-index: 100;
+                z-index: 200;
                 display: block;
 
             }
@@ -629,14 +632,15 @@ button:hover {
             .clearLocal {
                 display: absolute;
                 left: 0;
-                bottom: 0;
-                width: 41%;
+                top: 90vh;
+                width: 41vw;
                 height: 10vh;
                 z-index: 500;
                 background-color: red;
                 opacity: 0.5;
                 animation: all 1s ease;
                 margin: 0;
+                transition: none;
             }
            
 

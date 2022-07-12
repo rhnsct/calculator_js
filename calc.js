@@ -102,8 +102,9 @@ function appendTempList(input, oper = true) {
     } else {
         number = joinNumList();
     };
-    if (lookForOp() && operations.includes(input) && input != '='){
-        tempList.pop()
+    if (lookForOp() && operations.includes(input) && input != '=' && numList.length == 0){
+       
+        tempList.splice(-1,1)
         tempList.push(input)
     }
     else if (operations.includes(input) && numList.length > 0 && tempList.length > 0) {
@@ -122,6 +123,7 @@ function appendTempList(input, oper = true) {
         tempList.push(number);
     };
     screenUpdateLogic(0, false, true);
+    
 };
 
 function clearLists() {
@@ -166,13 +168,16 @@ function inputResponse(input_id) {
         resulting = false
         screenUpdateLogic(0, true, false)
     } else if (operations.includes(input) && tempList.length ==2 && numList.length > 0 && input != '=') {
-        appendTempList(input);
+        appendTempList(input)
         let result = sortForOperate()
         clearLists()
+        console.log(tempList)
         tempList.push(result)
         tempList.push(input)
+        console.log(tempList)
         screenUpdateLogic(0, false, true)
         screenUpdateLogic(0, true, false)
+        
     }
     else if (input == "=" && tempList.length != 0) {
         appendTempList(input, false);
